@@ -4,12 +4,17 @@
 
 *KTest* is a unit test framework inspired by [gtest](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for use with [kOS - Kerbal Operating System](https://github.com/KSP-KOS/KOS).
 
+
 ## Why KTest?
-Sometimes our kOS scripts don't work. KTest provides a framework for writing unit tests directly in kerboscript, the programming language of [kOS](https://github.com/KSP-KOS/KOS). It aims to provide a simple, lightweight API so you can spend spend less time writing tests and more time launching rockets!
+Sometimes our kOS scripts don't work.
+KTest provides a framework for writing unit tests directly in kerboscript.
+It aims to provide a simple, lightweight API so you can spend spend less time writing tests and more time launching rockets!
+
 
 ## Getting Started
 ### Installation
 To get started using KTest simply place the KTest folder somewhere alongside your kOS scripts.
+
 
 ### Running the example
 Assuming the KTest folder is located at 0:/KTest open a kOS terminal and type:
@@ -49,8 +54,11 @@ Expected equality of these values:
  1 FAILED TEST
 ```
 
+
 ### Writing your first test
 In your preferred kOS editor, create a new script file for your tests.
+
+
 #### Include the KTest library files in your script
 ```
 RUNPATH("/path/to/lib_ktest").
@@ -85,6 +93,7 @@ You should see output which looks like the following:
 [  PASSED  ] 1 test.
 ```
 
+
 ## Concepts
 ### Assertions
 Assertions are the meat and potatoes of the KTest framework.
@@ -100,6 +109,7 @@ You can use assertions to test the behavior of your script.
 | ASSERT GE(a, b) | a >= b |
 | ASSERT_TRUE(a)  | a      |
 | ASSERT_FALSE(a) | NOT a  |
+
 
 ### TEST
 *TEST* is used to declare a new *test* within a *test case*.
@@ -124,6 +134,7 @@ FUNCTION mytestb_implementation {
   // test body goes here
 }
 ```
+
 
 ### RUN_ALL_TESTS
 *RUN_ALL_TESTS* will run all of your registered *test cases* and their respective *tests*.
