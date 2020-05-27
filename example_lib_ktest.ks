@@ -1,8 +1,16 @@
+// KTest is a unit test framework inspired by gtest.
+// It can be used to write unit tests in kerboscript
+//
+// This is an example program which uses KTest to
+// create several tests within two test cases.
+//
+// Execution of this program expects lib_ktest to be
+// in the same directory, but the path may be specified
+// using the path_to_ktest parameter.
+
 @LAZYGLOBAL OFF.
-
-RUNPATH("lib_ktest").
-
-CLEARSCREEN.
+PARAMETER path_to_ktest IS "lib_ktest".
+RUNPATH(path_to_ktest).
 
 TEST("AssertionChecks", "GoodAssertions", {
   ASSERT_TRUE(TRUE).
