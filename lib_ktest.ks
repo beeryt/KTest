@@ -120,12 +120,14 @@ LOCAL FUNCTION PRED_FALSE { PARAMETER a. RETURN NOT a. }
 ///*
 // *  ASSERT_ is used by all asserts in this library.
 // *
-// *  @param failureCallback A delegate which is called when assertion fails.
-// *  @param expression      evaluates TRUE if assertion success, otherwise FALSE.
+// *  @param failureCallback  A delegate which is called when assertion fails.
+// *  @param expression       evaluates TRUE if assertion success, otherwise FALSE.
+// *  @param message          A custom failure message to display if assertion fails.
 // */
 LOCAL FUNCTION ASSERT_ {
   PARAMETER failureCallback.
   PARAMETER expression.
+  PARAMETER message IS "".
 
   IF NOT expression {
     failureCallback(expression).
@@ -139,11 +141,13 @@ LOCAL FUNCTION ASSERT_ {
 // *  @param failureCallback  A delegate which is called when assertion fails.
 // *  @param predicate        A delegate which determines assertion success/failure.
 // *  @param param1           First parameter provided to predicate.
+// *  @param message          A custom failure message to display if assertion fails.
 // */
   LOCAL FUNCTION ASSERT_PRED1 {
   PARAMETER failureCallback.
   PARAMETER predicate.
   PARAMETER param1.
+  PARAMETER message IS "".
 
   ASSERT_(failureCallback, predicate(param1)).
 }
@@ -156,11 +160,13 @@ LOCAL FUNCTION ASSERT_ {
 // *  @param predicate        A delegate which determines assertion success/failure.
 // *  @param param1           First parameter provided to predicate.
 // *  @param param2           Second parameter provided to predicate.
+// *  @param message          A custom failure message to display if assertion fails.
 // */
 LOCAL FUNCTION ASSERT_PRED2 {
   PARAMETER failureCallback.
   PARAMETER predicate.
   PARAMETER param1, param2.
+  PARAMETER message IS "".
 
   ASSERT_(failureCallback, predicate(param1, param2)).
 }
