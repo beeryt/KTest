@@ -109,6 +109,7 @@ You can use assertions to test the behavior of your script.
 | ASSERT GE(a, b) | a >= b |
 | ASSERT_TRUE(a)  | a      |
 | ASSERT_FALSE(a) | NOT a  |
+| ASSERT_FAIL()   |  FALSE |
 
 
 ### TEST
