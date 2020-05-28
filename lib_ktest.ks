@@ -55,8 +55,12 @@ FUNCTION RUN_ALL_TESTS {
     // process each test in test_case
     FOR test_name IN _test_cases[test_case]:KEYS {
       PRINT "[ RUN      ] " + test_case + "." + test_name.
+
+      // run test
       SET _test_success TO TRUE. // assume test success
       _test_cases[test_case][test_name]:CALL().
+
+      // determine success/failure
       IF _test_success {
         PRINT "[       OK ] " + test_case + "." + test_name.
       } ELSE {
@@ -131,6 +135,8 @@ LOCAL FUNCTION ASSERT_ {
 
   IF NOT expression {
     failureCallback(expression).
+    SET _test_success TO FALSE.
+    PRINT message.
   }
 }
 
