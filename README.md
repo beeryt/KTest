@@ -142,6 +142,17 @@ FUNCTION mytestb_implementation {
 #### Usage
 ```RUN_ALL_TESTS().```
 
+
+## Tweaking
+### Global Flags
+KTest provides a few global flags which can tweak the testing behavior.
+These may be useful for standardizing output or other niche uses.
+
+| Flag | Effect |
+| ---- | ------ |
+| *ktest_display_durations* | set this to FALSE if you wish to disable durations in output. Defaults to TRUE. |
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

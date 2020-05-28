@@ -1,4 +1,11 @@
 @LAZYGLOBAL OFF.
+
+// turn off duration printing
+// allows comparision against "golden" files
+IF NOT (DEFINED ktest_display_durations) {
+  GLOBAL ktest_display_durations IS FALSE.
+}
+
 PARAMETER path_to_ktest IS "lib_ktest".
 RUNPATH(path_to_ktest).
 

@@ -1,5 +1,11 @@
 @LAZYGLOBAL OFF.
 
+// by default KTest displays the duration of each test
+// if you would like to disable this behavior, then
+// set ktest_display_durations to FALSE.
+IF NOT (DEFINED ktest_display_durations) {
+  DECLARE GLOBAL ktest_display_durations TO TRUE.
+}
 
 ///*
 // *  TEST is used to register a testBody to a given testName within a testCase.
@@ -46,15 +52,18 @@ FUNCTION RUN_ALL_TESTS {
   LOCAL display_case_count IS DisplayCount(test_case_count, "test case").
   PRINT "[==========] Running " + display_total_count + " from " + display_case_count + ".".
   PRINT "[----------] Global test environment set-up.".
+  LOCAL total_test_start_time IS TIME:SECONDS.
 
   // process each test case
   FOR test_case IN _test_cases:KEYS {
     LOCAL display_test_count IS DisplayCount(_test_cases[test_case]:LENGTH, "test").
     PRINT "[----------] " + display_test_count + " from " + test_case + ".".
+    LOCAL test_case_start_time IS TIME:SECONDS.
 
     // process each test in test_case
     FOR test_name IN _test_cases[test_case]:KEYS {
       PRINT "[ RUN      ] " + test_case + "." + test_name.
+      LOCAL test_name_start_time IS TIME:SECONDS.
 
       // run test
       SET _test_success TO TRUE. // assume test success
@@ -62,14 +71,14 @@ FUNCTION RUN_ALL_TESTS {
 
       // determine success/failure
       IF _test_success {
-        PRINT "[       OK ] " + test_case + "." + test_name.
+        PRINT "[       OK ] " + test_case + "." + test_name + DisplayDuration(test_name_start_time, " (", ")").
       } ELSE {
-        PRINT "[  FAILED  ] " + test_case + "." + test_name.
+        PRINT "[  FAILED  ] " + test_case + "." + test_name + DisplayDuration(test_name_start_time, " (", ")").
         failed_test_list:ADD(test_case + "." + test_name).
       }
     }
 
-    PRINT "[----------] " + display_test_count + " from " + test_case + ".".
+    PRINT "[----------] " + display_test_count + " from " + test_case + DisplayDuration(test_case_start_time, " (", " total)").
     PRINT " ".
   }
 
@@ -77,7 +86,7 @@ FUNCTION RUN_ALL_TESTS {
   LOCAL display_tests_failed IS DisplayCount(failed_test_list:LENGTH, "test").
 
   PRINT "[----------] Global test environment tear-down.".
-  PRINT "[==========] " + display_total_count + " from " + display_case_count + " ran.".
+  PRINT "[==========] " + display_total_count + " from " + display_case_count + " ran. " + DisplayDuration(total_test_start_time, "(", " total)").
   PRINT "[  PASSED  ] " + display_tests_passed + ".".
   IF failed_test_list:LENGTH > 0 {
     PRINT "[  FAILED  ] " + display_tests_failed + ", listed below:".
@@ -196,6 +205,15 @@ LOCAL FUNCTION NONFATAL {
 LOCAL _test_cases IS LEXICON().
 LOCAL _test_success IS TRUE.
 
+// helper function for displaying elapsed times
+// TODO support more than ms
+LOCAL FUNCTION DisplayDuration {
+  PARAMETER duration.
+  PARAMETER begin IS "".
+  PARAMETER end IS "".
+  IF NOT ktest_display_durations RETURN "".
+  RETURN begin + ROUND((TIME:SECONDS - duration) * 1000) + " ms" + end.
+}
 
 // helper function for displaying counts of items
 LOCAL FUNCTION DisplayCount {
