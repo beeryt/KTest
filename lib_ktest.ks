@@ -164,9 +164,9 @@ LOCAL FUNCTION ASSERT_ {
   PARAMETER failureCallback.
   PARAMETER predicate.
   PARAMETER param1.
-  PARAMETER message IS "".
+  PARAMETER message IS param1.
 
-  ASSERT_(failureCallback, predicate(param1)).
+  ASSERT_(failureCallback, predicate(param1), message).
 }
 
 
@@ -183,9 +183,9 @@ LOCAL FUNCTION ASSERT_PRED2 {
   PARAMETER failureCallback.
   PARAMETER predicate.
   PARAMETER param1, param2.
-  PARAMETER message IS "".
+  PARAMETER message IS param1 + "    " + param2.
 
-  ASSERT_(failureCallback, predicate(param1, param2)).
+  ASSERT_(failureCallback, predicate(param1, param2), message).
 }
 
 
